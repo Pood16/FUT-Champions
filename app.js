@@ -71,7 +71,11 @@ function createCard(e){
     afficherCards();
 }
 function afficherCards(){
-
+    let cardsContainer = document.getElementById("cards");
+    cardsContainer.innerHTML = '';
+    players.forEach((player, index)=>{
+        
+    })
 }
 
 
