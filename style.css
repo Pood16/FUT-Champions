@@ -10,6 +10,10 @@ body{
 .display-statu {
     display: none;
 }
+.error-style {
+    color: red;
+    font-size: 12px;
+}
 /*  */
 header{
     height: 80px;
@@ -19,6 +23,13 @@ header{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     margin-top: 10px;
+}
+@media(max-width: 425px){
+  .container {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 10px;
+}
 }
 .left-side {
     grid-column: 1/2; 
@@ -30,6 +41,12 @@ header{
 #cards{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 425px){
+  #cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }
 #cards .card-container {
   position: relative;
@@ -49,9 +66,10 @@ header{
 }
 #cards .card-container .player-name {
   position: absolute;
-  top: 164px;
-  left: 60px;
-  width: 90px;
+    top: 167px;
+    left: 35px;
+    font-size: 14px;
+    text-align: center;
 }
 #cards .card-container .footer-card {
   position: absolute;
@@ -96,6 +114,16 @@ header{
     display: flex;
     justify-content: space-between;
   }
+  @media (max-width: 425px){
+    .form-container {
+      width: 100%;
+      max-width: 425px;
+    }
+    #player-form {
+      display: flex;
+      flex-direction: column;
+    }
+  }
   .form-group {
     margin-bottom: 15px;
   }
@@ -131,7 +159,6 @@ header{
   }
   
   input:focus, select:focus{
-    border-color: #4CAF50;
     outline: none;
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
   }

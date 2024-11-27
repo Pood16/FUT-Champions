@@ -1,5 +1,5 @@
 
-    players = [
+    playerss = [
       {
         "name": "Lionel Messi",
         "photo": "https://cdn.sofifa.net/players/158/023/25_120.png",
@@ -320,21 +320,7 @@
         "defending": 34,
         "physical": 63
       },
-      {
-        "name": "Trent Alexander-Arnold",
-        "photo": "https://cdn.sofifa.net/players/231/281/25_120.png",
-        "position": "RB",
-        "nationality": "England",
-        "flag": "https://cdn.sofifa.net/flags/gb-eng.png",
-        "club": "Liverpool",
-        "rating": 87,
-        "pace": 76,
-        "shooting": 66,
-        "passing": 89,
-        "dribbling": 80,
-        "defending": 79,
-        "physical": 71
-      },
+      
       {
         "name": "Achraf Hakimi",
         "photo": "https://cdn.sofifa.net/players/235/212/25_120.png",
@@ -399,23 +385,6 @@
         "defending": 55,
         "physical": 84
       },
-      {
-        "name": "Gianluigi Donnarumma",
-        "photo": "https://cdn.sofifa.net/players/230/621/25_120.png",
-        "position": "GK",
-        "nationality": "Italy",
-        "flag": "https://cdn.sofifa.net/flags/it.png",
-        "club": "Paris Saint-Germain",
-        "logo": "https://cdn.sofifa.net/meta/team/591/120.png",
-        "rating": 89,
-        "diving": 88,
-        "handling": 84,
-        "kicking": 75,
-        "reflexes": 90,
-        "speed": 50,
-        "positioning": 85
-      }
+      
     ]
     
-localStorage.setItem("players", JSON.stringify(players));
-  
