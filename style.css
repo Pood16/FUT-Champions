@@ -6,9 +6,11 @@
 body{
     font-family: sans-serif;
 }
+/*  */
 .display-statu {
     display: none;
 }
+/*  */
 header{
     height: 80px;
     background-color: blueviolet;
@@ -20,11 +22,62 @@ header{
 }
 .left-side {
     grid-column: 1/2; 
-    background-size: contain;
     margin-left: 10px;
     margin-right: 10px;
     border-radius: 10px;
 }
+/* cards */
+#cards{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+#cards .card-container {
+  position: relative;
+  width: 190px;
+}
+#cards .card-container .position-rate {
+  position: absolute;
+  top: 57px;
+  left: 29px;
+  font-size: 14px;
+}
+#cards .card-container .player-profile {
+  position: absolute;
+  top: 44px;
+  left: 31px;
+  width: 123px;
+}
+#cards .card-container .player-name {
+  position: absolute;
+  top: 164px;
+  left: 60px;
+  width: 90px;
+}
+#cards .card-container .footer-card {
+  position: absolute;
+  bottom: 31px;
+  left: 69px;
+}
+#cards .card-container .horizental-stats {
+  position: absolute;
+  top: 64px;
+  left: 135px;
+  font-weight: 700;
+  font-size: 13px;
+}
+#cards .card-container .bottom-stats{
+  position: absolute;
+  bottom: 54px;
+  left: 43px;
+  font-weight: 700;
+  font-size: 13px;
+}
+#cards .card-container .vertical-stats {
+  display: flex;
+  gap: 10px;
+  justify-content: space-evenly;
+}
+/* form */
 .form-container {
     background: #ffffff;
     padding: 20px 30px;
@@ -83,46 +136,6 @@ header{
     box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
   }
   
-/* start card  */
-.cards-container{
-    margin-top: 10px;
-}
-#cards{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
-.cards-container h3{
-    text-align: center;
-}
-.card-container {
-    position: relative;
-}
-.card-info {
-    position: absolute;
-    bottom: 44px;
-    left: 34px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.upper {
-    position: absolute;
-    top: 5px;
-    left: 0;
-}
-.player-name {
-    font-size: 1rem;
-    font-weight: 700;
-}
-td {
-    font-size: 13px;
-    padding: 0 2px;
-}
-.player-header-stat {
-    font-weight: bold;  
-}
-.player-stats-number {
-    font-weight: bold;
-}
+
 
 
