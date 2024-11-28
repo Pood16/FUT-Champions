@@ -1,161 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
 
-  <title>Document</title>
-</head>
-
-<body>
-  <header></header>
-
-  <div class="main">
-    <div class="container">
-      
-      <!-- Formulaire de creation des players -->
+  <body>
+    <header></header>
+    <main>
       <div class="left-side">
-        <!-- form -->
-        <div class="form-container">
-          <h1>Ajouter un Joueur</h1>
-          <form id="player-form">
-            <div class="left">
-              <div class="form-group">
-                <label for="player-name">Nom du Joueur :</label>
-                <input type="text" id="player-name" name="player-name" placeholder="Entrez le nom" />
-              </div>
-
-              <div class="form-group">
-                <label for="player-position">Position :</label>
-                <select id="player-position" name="player-position">
-                  <option value="">Sélectionnez une position</option>
-                  <option value="GK">Gardien (GK)</option>
-                  <option value="CB">Défenseur Central (CB)</option>
-                  <option value="LB">Latéral Gauche (LB)</option>
-                  <option value="RB">Latéral Droit (RB)</option>
-                  <option value="CM">Milieu Central (CM)</option>
-                  <option value="LM">Milieu Gauche (LM)</option>
-                  <option value="RM">Milieu Droit (RM)</option>
-                  <option value="LW">Ailier Gauche (LW)</option>
-                  <option value="RW">Ailier Droit (RW)</option>
-                  <option value="ST">Attaquant (ST)</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="player-rating">Rate :</label>
-                <input type="number" id="player-rating" name="player-rating" placeholder="1-99" min="1" />
-              </div>
-              <div class="form-group">
-                <label for="player-rating">Nationality :</label>
-                <input type="text" id="player-nationality" name="player-nationality" placeholder="Maroc"/>
-              </div>
-              <div class="not-keeper display-statu">
-                <div class="form-group">
-                  <label for="pace">Pace</label>
-                  <input type="number" id="pace" min="1" max="99" />
-                </div>
-                <div class="form-group">
-                  <label for="shooting">Shooting</label>
-                  <input type="number" id="shooting" min="1" max="99" />
-                </div>
-                <div class="form-group">
-                  <label for="passing">Passing</label>
-                  <input type="number" id="passing" min="1" max="99" />
-                </div>
-              </div>
-              <div class="goal-keeper display-statu">
-                <div class="form-group">
-                  <label for="diving">Diving</label>
-                  <input type="number" id="diving" min="1" max="99" />
-                </div>
-                <div class="form-group">
-                  <label for="handling">Handling</label>
-                  <input type="number" id="handling" min="1" max="99" />
-                </div>
-                <div class="form-group">
-                  <label for="kicking">Kicking</label>
-                  <input type="number" id="kicking" min="1" max="99" />
-                </div>
-              </div>
-            </div>
-            <div class="right">
-              <div class="form-group">
-                <label for="player-image">Image :</label>
-                <input type="url" id="player-image" name="player-image"
-                  placeholder="https://cdn.sofifa.net/players/158/023/25_120.png" />
-              </div>
-
-              <div class="form-group">
-                <label for="player-club">Club Drapo :</label>
-                <input type="url" id="player-club" name="player-club"
-                  placeholder="https://cdn.sofifa.net/meta/team/239235/120.png" />
-              </div>
-
-              <div class="form-group">
-                <label for="player-flag">Flag :</label>
-                <input type="url" id="player-flag" name="player-flag"
-                  placeholder="https://cdn.sofifa.net/flags/ar.png" />
-              </div>
-              <div class="form-group">
-                <label for="player-flag">Club :</label>
-                <input type="text" id="player-club-name" name="player-club-name"
-                  placeholder="Raja" />
-              </div>
-              <div class="not-keeper display-statu">
-                <div class="form-group">
-                  <label for="dribbling">Dribbling</label>
-                  <input type="number" id="dribbling" min="1" max="99" />
-                </div>
-                <div class="form-group">
-                  <label for="defending">Defending</label>
-                  <input type="number" id="defending" min="1" max="99" />
-                </div>
-                <div class="form-group">
-                  <label for="physical">Physical</label>
-                  <input type="number" id="physical" min="1" max="99" />
-                </div>
-              </div>
-              <div class="goal-keeper display-statu">
-                <div class="form-group">
-                  <label for="reflexes">Reflexes</label>
-                  <input type="number" id="reflexes" min="1" max="99" />
-                </div>
-                <div class="form-group">
-                  <label for="speed">Speed</label>
-                  <input type="number" id="speed" min="1" max="99" />
-                </div>
-                <div class="form-group">
-                  <label for="positioning">Positioning</label>
-                  <input type="number" id="positioning" min="1" max="99" />
-                </div>
-              </div>
-            </div>
-          </form>
-          <button id="create-card-button">Ajouter le Joueur</button>
-        </div>
-        <div class="cards-container"></div>
+        
       </div>
-
-
-      <!-- cartes -->
       <div class="right-side">
-        <div class="card-container">
-          <h3>Cartes des joueurs Creer</h3>
+          <div class="nav-list">
+            <button id="open-form">Creer Joueur</button>
+          </div>
+          <!-- card -->
           <div id="cards">
-
-                  
           </div>
         </div>
       </div>
+    </main>
+    <div class="form-box">
+      <div class="form-container">
+        <form id="player-form">
+          <div class="field">
+            <label for="player-name">Nom du Joueur :</label>
+            <input
+              type="text"
+              id="player-name"
+              name="player-name"
+              placeholder="Entrez le nom"
+            />
+          </div>
+          <div class="field">
+            <label for="player-rating">Rate :</label>
+            <input
+              type="number"
+              id="player-rating"
+              name="player-rating"
+              placeholder="1-99"
+              min="1"
+            />
+          </div>
+          <div class="field">
+            <label for="player-nationality">Nationality :</label>
+            <input
+              type="text"
+              id="player-nationality"
+              name="player-nationality"
+              placeholder="Maroc"
+            />
+          </div>
+          <div class="field">
+            <label for="player-image">Image :</label>
+            <input
+              type="url"
+              id="player-image"
+              name="player-image"
+              placeholder="https://cdn.sofifa.net/players/158/023/25_120.png"
+            />
+          </div>
+          <div class="field">
+            <label for="player-flag">Flag :</label>
+            <input
+              type="url"
+              id="player-flag"
+              name="player-flag"
+              placeholder="https://cdn.sofifa.net/flags/ar.png"
+            />
+          </div>
+          <div class="field">
+            <label for="player-club-name">Club :</label>
+            <input
+              type="text"
+              id="player-club-name"
+              name="player-club-name"
+              placeholder="Raja"
+            />
+          </div>
+          <div class="field">
+            <label for="player-club">Club Drapo :</label>
+            <input
+              type="url"
+              id="player-club"
+              name="player-club"
+              placeholder="https://cdn.sofifa.net/meta/team/239235/120.png"
+            />
+          </div>
+          <div class="field">
+            <label for="player-position">Position :</label>
+            <select id="player-position" name="player-position">
+              <option value="">Sélectionnez une position</option>
+              <option value="GK">Gardien (GK)</option>
+              <option value="CB">Défenseur Central (CB)</option>
+              <option value="LB">Latéral Gauche (LB)</option>
+              <option value="RB">Latéral Droit (RB)</option>
+              <option value="CM">Milieu Central (CM)</option>
+              <option value="LM">Milieu Gauche (LM)</option>
+              <option value="RM">Milieu Droit (RM)</option>
+              <option value="LW">Ailier Gauche (LW)</option>
+              <option value="RW">Ailier Droit (RW)</option>
+              <option value="ST">Attaquant (ST)</option>
+            </select>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submit-btn">
+            Creer
+          </button>
+        </form>
+        <span id="close-form">X</span>
+      </div>
     </div>
-  </div>
 
-  
-  <script src="players.js"></script>
-  <script src="app.js"></script>
-</body>
-
+    <script src="players.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>

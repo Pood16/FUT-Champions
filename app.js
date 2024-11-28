@@ -1,44 +1,152 @@
 
-
+// ========
 let players = JSON.parse(localStorage.getItem("players")) || [];
     
 if(players.length === 0){
   localStorage.setItem("players", JSON.stringify(playerss));
   players = JSON.parse(localStorage.getItem("players")) || [];
 }
-// afficher les cartes dans deja creer
 afficherCards();
-
-
-// Partie de formule 
-document.getElementById("player-position").addEventListener("change", function(){
-    const positionValue = document.getElementById("player-position").value;
-    let  notKeeper = document.getElementsByClassName("not-keeper");
-    let goalKeeper = document.getElementsByClassName("goal-keeper");
-    if (positionValue === "GK"){
-        Array.from(notKeeper).forEach(element =>{
-            element.classList.add("display-statu");
-        })
-        Array.from(goalKeeper).forEach(element =>{
-            element.classList.remove("display-statu");
-        })
-    }else{
-         Array.from(notKeeper).forEach(element =>{
-            element.classList.remove("display-statu");
-        })
-        Array.from(goalKeeper).forEach(element =>{
-            element.classList.add("display-statu");
-        })
+// display and hide form
+let form = document.getElementById("player-form");
+let formModal = document.querySelector(".form-box");
+let openModal = document.getElementById("open-form");
+let closeModal = document.getElementById("close-form");
+const buttonForm = document.getElementById("submit-btn");
+openModal.addEventListener("click", function(){
+    formModal.style.display = "flex";
+})
+closeModal.addEventListener("click", function(){
+    formModal.style.display = "none";
+})
+window.addEventListener("click", function(e){
+    if(e.target == formModal){
+        formModal.style.display = "none";
     }
 })
 
-
-// Validation de Form
-document.getElementById("create-card-button").addEventListener("click", function(e){
-  e.preventDefault(); 
-  const messages = document.querySelectorAll(".error-style");
+// the position select
+document.getElementById("player-position").addEventListener("change", function(){
+    Array.from(document.getElementsByClassName("added-by-js")).forEach(element => element.remove());
+    const position = document.getElementById("player-position");
+    let a = "";
+    let b = "";
+    let c = "";
+    let d = "";
+    let e = "";
+    let f = "";
+    if (position.value === "GK"){
+        a = `
+            <div class="field">
+                <label for="handeling">Handeling :</label>
+                <input type="number" id="handling" min="1" max="99" placeholder=" 99 "/>
+            </div>
+              
+        `
+        b = `
+            <div class="field">
+                <label for="kicking">Kicking :</label>
+                <input type="number" id="kicking" min="1" max="99" placeholder=" 99 "/>
+            </div>     
+        `
+        c = `
+            <div class="field">
+                <label for="reflex">Reflex :</label>
+                <input type="number" id="reflexes" min="1" max="99" placeholder=" 99 "/>
+            </div>
+              
+        `
+        d = `
+            <div class="field">
+                <label for="speed">Speed :</label>
+                <input type="number" id="speed" min="1" max="99" placeholder=" 99 "/>
+            </div>     
+        `
+        e = `
+            <div class="field">
+                <label for="positionning">Positioning :</label>
+                <input type="number" id="positioning" min="1" max="99" placeholder=" 99 "/>
+            </div>
+              
+        `
+        f = `
+            <div class="field">
+                <label for="diving">Diving :</label>
+                <input type="number" id="diving" min="1" max="99" placeholder=" 99 "/>
+            </div>     
+        `
+    }else{
+        a = `
+        <div class="field">
+            <label for="physical">Physical :</label>
+            <input type="number" id="physical" min="1" max="99" placeholder=" 99 "/>
+        </div>
+          
+    `
+    b = `
+        <div class="field">
+            <label for="pace">Pace :</label>
+            <input type="number" id="pace" min="1" max="99" placeholder=" 99 "/>
+        </div>     
+    `
+    c = `
+        <div class="field">
+            <label for="shooting">Shooting :</label>
+            <input type="number" id="shooting" min="1" max="99" placeholder=" 99 "/>
+        </div>
+          
+    `
+    d = `
+        <div class="field">
+            <label for="passing">Passing :</label>
+            <input type="number" id="passing" min="1" max="99" placeholder=" 99 "/>
+        </div>     
+    `
+    e = `
+        <div class="field">
+            <label for="dribbling">Dribbling :</label>
+            <input type="number" id="dribbling" min="1" max="99" placeholder=" 99 "/>
+        </div>
+          
+    `
+    f = `
+        <div class="field">
+            <label for="defending">Defending :</label>
+            <input type="number" id="defending" min="1" max="99" placeholder=" 99 "/>
+        </div>     
+    `
+    }
+    let divA = document.createElement("div");
+    let divB = document.createElement("div");
+    let divC = document.createElement("div");
+    let divD = document.createElement("div");
+    let divE = document.createElement("div");
+    let divF = document.createElement("div");
+    divA.className = "added-by-js";
+    divB.className = "added-by-js";
+    divC.className = "added-by-js";
+    divD.className = "added-by-js";
+    divE.className = "added-by-js";
+    divF.className = "added-by-js";
+    divA.innerHTML = a;
+    divB.innerHTML = b;
+    divC.innerHTML = c;
+    divD.innerHTML = d;
+    divE.innerHTML = e;
+    divF.innerHTML = f;
+    form.insertBefore(divA, buttonForm);
+    form.insertBefore(divB, buttonForm);
+    form.insertBefore(divC, buttonForm);
+    form.insertBefore(divD, buttonForm);
+    form.insertBefore(divE, buttonForm);
+    form.insertBefore(divF, buttonForm);
+})
+// validation de form
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+    let isValid = true;
+    const messages = document.querySelectorAll(".error-style");
   messages.forEach(message => message.remove());
-  let isValid = true;
   // form inputs
   const textInputs = document.querySelectorAll('input[type="text"]');
   const numberInputs = document.querySelectorAll('input[type="number"]');
@@ -63,33 +171,31 @@ document.getElementById("create-card-button").addEventListener("click", function
 
   // check numbers
   function checkNumbers(input){
-    if (input.value > 99 ){
-      createError(input, "Entrer un nombre entre 1 et 99");
+    const numberValue = Number(input.value);
+    if (isNaN(numberValue)){
+        createError(input, "Please Entrer un nombre!");
+    }else if (numberValue < 1 || numberValue > 99){
+        createError(input, "Entrer un nombre Entre 1 et 99");
     } 
   }
-
+// validation des URL
   textInputs.forEach(input => checkTexts(input));
   numberInputs.forEach(input => checkNumbers(input));
-  // textInputs.forEach(input => {
-  //   console.log('Validating text input:', input.value);
-  //   checkTexts(input);
-  // });
-  // numberInputs.forEach(input => {
-  //   console.log('Validating number input:', input.value);
-  //   checkNumbers(input);
-  // });
-  // console.log('Final validation state:', isValid);
-  if (isValid){
-    createCard();
-  }
-});
 
+    if(isValid){
+        createCard(); 
+    }else{
+        e.preventDefault();
+    }
+})
+// Created card function 
 function createCard(){
 
     let playerInformation;
     const positioStats = document.getElementById("player-position").value;
+    let theName = document.getElementById("player-name").value.trim().split(" ");
     const communPart = {
-        "name": document.getElementById("player-name").value.trim(),
+        "name": theName[0],
         "photo": document.getElementById("player-image").value.trim(),
         "position": positioStats,
         "nationality": document.getElementById("player-nationality").value.trim(),
@@ -130,52 +236,55 @@ function afficherCards(){
     players.forEach(player =>{
         const playerContainer = document.createElement("div");
         playerContainer.className = "card-container";
+        const playerName = player.name.trim().split(" ");
+
         let partieNonCommun;
         if (player.position === "GK"){
             partieNonCommun = `
-                <div class="horizental-stats">
+                 <div class="horizental-stats">
                   <p>DIV</p>
-                  <p>${player.diving}</p>
+                  <p style="font-weight: 700;">${player.diving}</p>
                   <p>HAN</p>
-                  <p>${player.handling}</p>
+                  <p style="font-weight: 700;">${player.handling}</p>
                   <p>CIK</p>
-                  <p>${player.kicking}</p>
+                  <p style="font-weight: 700;">${player.kicking}</p>
                 </div>
-                <div class="bottom-stats">
-                  <div class="vertical-stats">
-                    <p>REF</p>
-                    <p>SPE</p>
-                    <p>POS</p>
-                  </div>
-                  <div class="vertical-stats">  
-                    <p>${player.reflexes}</p>
-                    <p>${player.speed}</p>
-                    <p>${player.positioning}</p>
-                  </div>
-                </div>  `
+                <table>
+                    <tr>
+                      <td>REF</td>
+                      <td>SPE</td>
+                      <td>POS</td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: 700;">${player.reflexes}</td>
+                      <td style="font-weight: 700;">${player.speed}</td>
+                      <td style="font-weight: 700;">${player.positioning}</td>
+                    </tr>
+                  </table>
+            `
         }else{
             partieNonCommun = 
                 `
                 <div class="horizental-stats">
                   <p>PAC</p>
-                  <p>${player.pace}</p>
+                  <p style="font-weight: 700;">${player.pace}</p>
                   <p>SHO</p>
-                  <p>${player.shooting}</p>
+                  <p style="font-weight: 700;">${player.shooting}</p>
                   <p>PAS</p>
                   <p>${player.passing}</p>
                 </div>
-                <div class="bottom-stats">
-                  <div class="vertical-stats">
-                    <p>DRI</p>
-                    <p>DEF</p>
-                    <p>PHY</p>
-                  </div>
-                  <div class="vertical-stats">  
-                    <p>${player.dribbling}</p>
-                    <p>${player.defending}</p>
-                    <p>${player.physical}</p>
-                  </div>
-                </div>
+                <table>
+                    <tr>
+                      <td>DEF</td>
+                      <td>DRI</td>
+                      <td>PHY</td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: 700;">${player.defending}</td>
+                      <td style="font-weight: 700;">${player.dribbling}</td>
+                      <td style="font-weight: 700;">${player.physical}</td>
+                    </tr>
+                  </table>
       `
         }
         playerContainer.innerHTML = `
@@ -184,11 +293,11 @@ function afficherCards(){
                   <p>${player.rating}</p>
                   <p>${player.position}</p>
                 </div>
-                <img src="${player.photo}" alt="${player.name}" class="player-profile">
-                <h3 class="player-name">${player.name}</h3>
+                <img src="${player.photo}" alt="${playerName[0]}" class="player-profile">
+                <h3 class="player-name">${playerName[0]}</h3>
                 <div class="footer-card">
-                  <img src="${player.flag}" alt="country flag" class="country-flag" width="20px">
-                  <img src="${player.logo}" alt="club flag" class="club-flag" width="20px">
+                  <img src="${player.flag}" alt="country flag" class="country-flag" width="15px">
+                  <img src="${player.logo}" alt="club flag" class="club-flag" width="15px">
                 </div>
                 ${partieNonCommun}
     
@@ -196,5 +305,4 @@ function afficherCards(){
         cardsContainer.appendChild(playerContainer);
     })
 }
-
 
