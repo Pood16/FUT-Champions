@@ -3,23 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css" />
 
-    <title>Document</title>
+    <title>FUT</title>
   </head>
 
   <body>
     <header></header>
     <main>
       <div class="left-side">
-        
+        <div class="player-in-pitch goal-keeper"></div>
+        <div class="player-in-pitch second-line"></div>
+        <div class="player-in-pitch second-line"></div>
+        <div class="player-in-pitch second-line"></div>
+        <div class="player-in-pitch second-line"></div>
+        <div class="player-in-pitch middle-field"></div>
+        <div class="player-in-pitch middle-field"></div>
+        <div class="player-in-pitch middle-field"></div>
+        <div class="player-in-pitch middle-field"></div>
+        <div class="player-in-pitch fourth-line"></div>
+        <div class="player-in-pitch fourth-line"></div>
+        <div class="player-in-pitch fourth-line"></div>
       </div>
       <div class="right-side">
           <div class="nav-list">
             <button id="open-form">Creer Joueur</button>
+            <div class="field-group">
+              <label for="formulation-select">Formation: </label>
+                <select name="formaulation-select" id="formulation-select">
+                  <option value="">(select)</option>
+                  <option value="4-3-3">4-3-3</option>
+                  <option value="4-4-2">4-4-2</option>
+                </select>
+              </div>
           </div>
           <!-- card -->
           <div id="cards">
+              
           </div>
         </div>
       </div>
@@ -32,8 +53,7 @@
             <input
               type="text"
               id="player-name"
-              name="player-name"
-              placeholder="Entrez le nom"
+              name="player-namez le nom"
             />
           </div>
           <div class="field">
@@ -116,7 +136,7 @@
       </div>
     </div>
 
-    <script src="players.js"></script>
+    <!-- <script src="players.js"></script> -->
     <script src="app.js"></script>
   </body>
 </html>

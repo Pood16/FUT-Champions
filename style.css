@@ -22,6 +22,7 @@ main {
   margin: 20px 30px;
 
 }
+/* left */
 main .left-side{
   width: 56rem;
   height: 100vh;
@@ -29,7 +30,24 @@ main .left-side{
   background-size: cover;
   background-position: center;
   border-radius: 10px;
+  position: relative;
 }
+
+main .left-side .player-in-pitch{
+ width: 100px;
+ height: 118px;
+ background-image: url('/img/bg/card.webp');
+ background-position: center;
+ background-repeat: no-repeat;
+ background-size: cover;
+}
+main .left-side .goal-keeper {
+  position: absolute;
+  bottom: 15%;
+  left: 44%;
+}
+
+/*  right  */
 main .right-side {
   width: 700px;
   height: 80px;
@@ -39,6 +57,9 @@ main .right-side {
 main .right-side .nav-list {
   padding: 10px 20px;
   border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 main .right-side .nav-list button {
   padding: 10px 20px;
@@ -55,6 +76,15 @@ main .right-side .nav-list button:hover {
 main .right-side .nav-list button:active {
   background-color: #0e7490;
 }
+main .right-side .nav-list .field-group select{
+    padding: 10px 20px;
+    border: 1px solid #E8EAED;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 1px 3px -2px #9098A9;
+    cursor: pointer;
+}
+/* start cards */
 main .right-side #cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -63,7 +93,22 @@ main .right-side #cards {
 main .right-side #cards .card-container{
   position: relative;
   width: 130px;
+  cursor: pointer;
+  
 }
+main .right-side #cards .card-container .icons {
+  position: absolute;
+  cursor: pointer;
+}
+main .right-side #cards .card-container .add {
+  top: 20px;
+  left: 13px;
+}
+main .right-side #cards .card-container .edit {
+  right: 6px;
+  top: 18px;
+}
+
 main .right-side #cards .card-container #card-bg-image{
   max-width: 100%;
   height: 200px;
@@ -114,8 +159,12 @@ main .right-side #cards .card-container table td {
 main .right-side #cards .card-container .footer-card {
   position: absolute;
   left: 50px;
-  top: 139px;
-  
+  top: 139px; 
+}
+main .right-side #cards .card-container .footer-card img{
+  width: 15px;
+  height: 15px;
+  object-fit: cover;
 }
 
 
@@ -170,8 +219,7 @@ main .right-side #cards .card-container .footer-card {
   font-size: 14px;
 }
 
-.field input::placeholder,
-.field select::placeholder {
+.field input::placeholder{
   color: #999;
 }
 
@@ -270,6 +318,8 @@ main .right-side #cards .card-container .footer-card {
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
   main .right-side .nav-list {
+      display: flex;
+      justify-content: center;
       padding: 10px 20px;
       border-radius: 20px;
   }
@@ -281,11 +331,18 @@ main .right-side #cards .card-container .footer-card {
       cursor: pointer;
       font-size: 1rem;
       color: #020617;
+      display: block;
   }
   main .right-side .nav-list button:hover {
       background-color: #0891b2;
   }
   main .right-side .nav-list button:active {
       background-color: #0e7490;
+  }
+  main .right-side .nav-list .field-group {
+    border: 1px solid red;
+    width: 100px;
+    height: 100px;
+  
   }
 }

@@ -1,11 +1,6 @@
 
 // ========
 let players = JSON.parse(localStorage.getItem("players")) || [];
-    
-if(players.length === 0){
-  localStorage.setItem("players", JSON.stringify(playerss));
-  players = JSON.parse(localStorage.getItem("players")) || [];
-}
 afficherCards();
 // display and hide form
 let form = document.getElementById("player-form");
@@ -38,7 +33,7 @@ document.getElementById("player-position").addEventListener("change", function()
     if (position.value === "GK"){
         a = `
             <div class="field">
-                <label for="handeling">Handeling :</label>
+                <label for="handling">Handeling :</label>
                 <input type="number" id="handling" min="1" max="99" placeholder=" 99 "/>
             </div>
               
@@ -51,7 +46,7 @@ document.getElementById("player-position").addEventListener("change", function()
         `
         c = `
             <div class="field">
-                <label for="reflex">Reflex :</label>
+                <label for="reflexes">Reflex :</label>
                 <input type="number" id="reflexes" min="1" max="99" placeholder=" 99 "/>
             </div>
               
@@ -64,7 +59,7 @@ document.getElementById("player-position").addEventListener("change", function()
         `
         e = `
             <div class="field">
-                <label for="positionning">Positioning :</label>
+                <label for="positioning">Positioning :</label>
                 <input type="number" id="positioning" min="1" max="99" placeholder=" 99 "/>
             </div>
               
@@ -195,35 +190,35 @@ function createCard(){
     const positioStats = document.getElementById("player-position").value;
     let theName = document.getElementById("player-name").value.trim().split(" ");
     const communPart = {
-        "name": theName[0],
-        "photo": document.getElementById("player-image").value.trim(),
-        "position": positioStats,
-        "nationality": document.getElementById("player-nationality").value.trim(),
-        "flag": document.getElementById("player-flag").value.trim(),
-        "club": document.getElementById("player-club-name").value.trim(),
-        "logo": document.getElementById("player-club").value,
-        "rating": parseInt(document.getElementById("player-rating").value)
+        name: theName[0],
+        photo: document.getElementById("player-image").value.trim(),
+        position: positioStats,
+        nationality: document.getElementById("player-nationality").value.trim(),
+        flag: document.getElementById("player-flag").value.trim(),
+        club: document.getElementById("player-club-name").value.trim(),
+        logo: document.getElementById("player-club").value,
+    rating: parseInt(document.getElementById("player-rating").value)
     };
 
     if (positioStats === "GK"){
         playerInformation = {
             ...communPart,
-            "diving": parseInt(document.getElementById("diving").value),
-            "handling": parseInt(document.getElementById("handling").value),
-            "kicking":parseInt( document.getElementById("kicking").value),
-            "reflexes": parseInt(document.getElementById("reflexes").value),
-            "speed":parseInt( document.getElementById("speed").value),
-            "positioning": parseInt(document.getElementById("positioning").value)
+        diving: parseInt(document.getElementById("diving").value),
+        handling: parseInt(document.getElementById("handling").value),
+        kicking:parseInt( document.getElementById("kicking").value),
+        reflexe : parseInt(document.getElementById("reflexes").value),
+        speed:parseInt( document.getElementById("speed").value),
+        positioning: parseInt(document.getElementById("positioning").value)
         }
     }else{
         playerInformation = {
             ...communPart,
-            "pace": parseInt(document.getElementById("pace").value),
-            "shooting":parseInt( document.getElementById("shooting").value),
-            "passing": parseInt(document.getElementById("passing").value),
-            "dribbling": parseInt(document.getElementById("dribbling").value),
-            "defending":parseInt( document.getElementById("defending").value),
-            "physical":parseInt( document.getElementById("physical").value)
+        pace: parseInt(document.getElementById("pace").value),
+        shooting:parseInt( document.getElementById("shooting").value),
+        passing: parseInt(document.getElementById("passing").value),
+        dribbling: parseInt(document.getElementById("dribbling").value),
+        defending:parseInt( document.getElementById("defending").value),
+        physical:parseInt( document.getElementById("physical").value)
         }
     }
     players.unshift(playerInformation);
@@ -288,6 +283,8 @@ function afficherCards(){
       `
         }
         playerContainer.innerHTML = `
+            <span class="icons add"><i class="fa-solid fa-user-plus"></i></span>
+            <span class="icons edit"><i class="fa-solid fa-user-pen"></i></span>
             <img src="img/bg/card.webp" alt="card background" width="100%"/>
                 <div class="position-rate">
                   <p>${player.rating}</p>
