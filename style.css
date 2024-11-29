@@ -20,15 +20,24 @@ header{
   margin-bottom: -5px;
   display: flex;
   justify-content: space-between;
+  border-radius: 10px;
 }
-header .logo {
-  width: 100px;
-  height: 40px;
-  border-radius: 40px;
-  margin-top: 5px;
+
+header img{
+  width: 150px;
+  object-fit: cover;
+  border-radius: 10px;
 }
-header .logo img{
-  width: 100%;
+header button{
+  padding: 5px 30px;
+  border: none;
+  border-radius: 10px;
+  background-color: white;
+  margin: 5px;
+  font-size: 1.2rem;
+  font-weight: 700; 
+  margin-left: auto;
+  cursor: pointer;
 }
 
 main {
@@ -80,7 +89,7 @@ main .right-side {
 main .right-side .nav-list {
   height: 70px;
   padding: 10px 20px;
-  border-radius: 20px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -117,13 +126,14 @@ main .right-side #cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 15px;
   overflow-y: scroll;
   height: calc(100vh - 50px - 80px);
 }
 main .right-side #cards .card-container{
   position: relative;
   width: 150px;
+  height: fit-content;
   cursor: pointer;  
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -328,6 +338,9 @@ main .right-side #cards .card-container .card-footer img{
   height: 40px;
   text-align: center;
   cursor: pointer;
+}
+#close-form:hover {
+  background-color: 	#d1d5db;
 }
 
 

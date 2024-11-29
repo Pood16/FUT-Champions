@@ -11,7 +11,7 @@ const buttonForm = document.getElementById("submit-btn");
 openModal.addEventListener("click", function(){
     formModal.style.display = "flex";
     buttonForm.style.display = "block";
-    saveBtn.style.display = "none";
+    // saveBtn.style.display = "none";
 })
 closeModal.addEventListener("click", function(){
     formModal.style.display = "none";
@@ -139,7 +139,7 @@ document.getElementById("player-position").addEventListener("change", function()
     form.insertBefore(divE, buttonForm);
     form.insertBefore(divF, buttonForm);
 })
-// validation de form
+// ===========================  validation de form
 form.addEventListener("submit", function(e){
     e.preventDefault();
     let isValid = true;
@@ -185,13 +185,14 @@ form.addEventListener("submit", function(e){
         e.preventDefault();
     }
 })
-// Created card function 
+// .............. Created card and players functions
 function createPlayer(){
 
     let playerInformation;
     const positioStats = document.getElementById("player-position").value;
     let theName = document.getElementById("player-name").value.trim().split(" ");
     const communPart = {
+        
         name: theName[0],
         photo: document.getElementById("player-image").value.trim(),
         position: positioStats,
@@ -199,7 +200,8 @@ function createPlayer(){
         flag: document.getElementById("player-flag").value.trim(),
         club: document.getElementById("player-club-name").value.trim(),
         logo: document.getElementById("player-club").value,
-        rating: parseInt(document.getElementById("player-rating").value)
+        rating: parseInt(document.getElementById("player-rating").value),
+        stats: "keep"
     };
 
     if (positioStats === "GK"){
@@ -227,10 +229,12 @@ function createPlayer(){
     localStorage.setItem("players", JSON.stringify(players));
     createCard();
 }
+removePlayer();
 function createCard(){
+    let playerss = JSON.parse(localStorage.getItem("players")) || [];
     let cardsContainer = document.getElementById("cards");
     cardsContainer.innerHTML = '';
-    players.forEach(player =>{
+    playerss.forEach(player =>{
         const playerContainer = document.createElement("div");
         playerContainer.className = "card-container";
         const playerName = player.name.trim().split(" ");
@@ -316,38 +320,21 @@ function createCard(){
             <div class="icons-container">
                 <span class="icons add"><i class="fa-solid fa-user-plus"></i></span>
                 <span class="icons edit"><i class="fa-solid fa-user-pen"></i></span>
-                <span class="icons edit"><i class="fa-solid fa-user-xmark"></i></span>
+                <span class="icons delete"><i class="fa-solid fa-user-xmark"></i></span>
             </div>
     
         `;
         cardsContainer.appendChild(playerContainer);
     })
+    removePlayer();
 }
 
 
-const edit = document.querySelector(".edit");
-const add = document.querySelector(".add");
-const saveBtn = document.getElementById("save-changes-btn");
-edit.addEventListener("click", function(e){
-    formModal.style.display = "flex";
-    saveBtn.style.display = "block";
-    buttonForm.style.display = "none";
-    const parentContainer = e.target.parentNode.parentNode.parentNode;
-    playerNameEdit = parentContainer.children[3].textContent;
-    playerPositionEdit = parentContainer.children[1].children[0].textContent;
-    playerRateEdit = parentContainer.children[1].children[1].textContent;
-    console.log(players)
-    // player in players
-    const editPlayer = players.filter((player => player.name === playerNameEdit));
-    console.log(editPlayer)
-})
-add.addEventListener("click", function(){
-    console.log("add is clicked");
-})
 
 
 
-// formula function
+
+//========================= formula function
 const formations = [
     {
       formation: "4-4-2",
@@ -402,9 +389,9 @@ const formations = [
       },
     },
   ];
-  
+
   function repositionCards(x) {
-    const formation = formations.find(element => element.formation === x);
+    const formation = formations.find(element => element.formation.trim() === x);
     const cards = document.querySelectorAll(".single-card");
     let cardIndex = 0;
     for (let i = 0; i < formation.forward; i++) {
@@ -435,4 +422,26 @@ const formations = [
       const formulaValue = formulaType.value.trim();
       repositionCards(formulaValue); 
   })
+//   ================================= Remove player Function
+// buttonForm form
+
+function removePlayer() {
+    const deleteIcons = document.querySelectorAll(".delete");
+    deleteIcons.forEach(element => element.addEventListener("click", function(e){
+    const card = e.target.closest('.card-container');
+    const targetName = card.children[3].textContent.trim();
+    
+    // remove the player 
+    console.log(players);
+    players = players.filter(player => player.name.trim() !== targetName);
+    console.log(players);
+    
+    // update the cards 
+    localStorage.setItem("players", JSON.stringify(players));
+    createCard();
+}));
+}
+
+
+
   
