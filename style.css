@@ -7,59 +7,86 @@
 body{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #e2e8f0;
+  height: 100vh;
 }
 .error-style {
   color: red;
   font-size: 12px;
 }
 header{
-  height: 60px;
+  margin: 5px 30px;
+  height: 45px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: -5px;
+  display: flex;
+  justify-content: space-between;
 }
+header .logo {
+  width: 100px;
+  height: 40px;
+  border-radius: 40px;
+  margin-top: 5px;
+}
+header .logo img{
+  width: 100%;
+}
+
 main {
   display: flex;
   gap: 10px;
-  margin: 20px 30px;
-
+  margin: 10px 30px;
+  height: calc(100vh - 60px);
+  /* border: 1px solid black; */
 }
 /* left */
 main .left-side{
   width: 56rem;
-  height: 100vh;
-  background-image: url('./img/bg/stadium_background.webp');
-  background-size: cover;
-  background-position: center;
-  border-radius: 10px;
+  height: 100%;
+}
+main .pitch {
+  width: 100%;
+  height: 100%;
   position: relative;
 }
-
-main .left-side .player-in-pitch{
- width: 100px;
- height: 118px;
- background-image: url('/img/bg/card.webp');
- background-position: center;
- background-repeat: no-repeat;
- background-size: cover;
+main .pitch .stadium_background{
+  width: 100%;
+  height: 100%;
 }
-main .left-side .goal-keeper {
+main .pitch .pitch-cards {
   position: absolute;
-  bottom: 15%;
-  left: 44%;
+  top: 0;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-4%, -22%);
 }
+main .pitch .pitch-cards .single-card {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 10%;
+  
+}
+main .pitch .pitch-cards .single-card img {
+  width: 100%;
+}
+
+
 
 /*  right  */
 main .right-side {
   width: 700px;
-  height: 80px;
-  padding: 10px 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 main .right-side .nav-list {
+  height: 70px;
   padding: 10px 20px;
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: -5px;
+  background-color: white;
 }
 main .right-side .nav-list button {
   padding: 10px 20px;
@@ -69,6 +96,7 @@ main .right-side .nav-list button {
   cursor: pointer;
   font-size: 1rem;
   color: #020617;
+  font-weight: bold;
 }
 main .right-side .nav-list button:hover {
   background-color: #0891b2;
@@ -88,84 +116,105 @@ main .right-side .nav-list .field-group select{
 main .right-side #cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  margin-top: 30px;
+  gap: 10px;
+  margin-top: 10px;
+  overflow-y: scroll;
+  height: calc(100vh - 50px - 80px);
 }
 main .right-side #cards .card-container{
   position: relative;
-  width: 130px;
-  cursor: pointer;
-  
+  width: 150px;
+  cursor: pointer;  
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
 }
-main .right-side #cards .card-container .icons {
+main .right-side #cards .card-container .icons-container{
+  width: 70%;
+  background-color: rgba(0, 0, 0, 1);
   position: absolute;
-  cursor: pointer;
+  top: 0;
+  left: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
 }
-main .right-side #cards .card-container .add {
-  top: 20px;
-  left: 13px;
+main .right-side #cards .card-container .icons-container .icons{
+  color: white;
+  padding: 5px;
+  border-radius: 50%;
+  text-align: center;
 }
-main .right-side #cards .card-container .edit {
-  right: 6px;
-  top: 18px;
+main .right-side #cards .card-container .icons-container .icons:hover{
+  color: red;
 }
+
+
+/* &************** */
 
 main .right-side #cards .card-container #card-bg-image{
   max-width: 100%;
-  height: 200px;
 }
-main .right-side #cards .card-container .position-rate{
+main .right-side #cards .card-container .header-left{
   position: absolute;
-  top: 40px;
-  left: 18px;
+  top: 43px;
+  left: 28px;
   font-size: 10px;
   font-weight: 700;
 }
+main .right-side #cards .card-container .header-left .header-position {
+  font-weight: 500;
+}
 main .right-side #cards .card-container .player-profile {
   position: absolute;
-  top: 22px;
-  left: 18px;
-  width: 79px;
+  top: 36px;
+  left: 34px;
+  width: 85px;
 }
 main .right-side #cards .card-container .player-name {
-  position: absolute;
-  left: 35px;
-  top: 99px;
-  font-size: 13px;
+   position: absolute;
+    left: 54px;
+    top: 118px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 0;
 }
-main .right-side #cards .card-container .horizental-stats {
+main .right-side #cards .card-container .statistics{
+  display: flex;
+    gap: 2px;
+    position: absolute;
+    top: 133px;
+    left: 20px;
+}
+main .right-side #cards .card-container .statistics .field-group{
   display: flex;
   flex-direction: column;
-  position: absolute;
-  right: 15px;
-  top: 38px;
-  font-size: 10px;
-  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+  gap: 0px;
 }
-main .right-side #cards .card-container table {
-  width: 75%;
-  border-collapse: collapse;
-  position: absolute;
-  bottom: 42px;
-  left: 15px;
-}
-main .right-side #cards .card-container table th {
+main .right-side #cards .card-container .statistics .field-group .property-title{
+  margin-bottom: -5px;
   font-size: 8px;
   font-weight: 500;
 }
-main .right-side #cards .card-container table td {
-  font-size: 10px; 
-  text-align: center; 
-}
-main .right-side #cards .card-container .footer-card {
-  position: absolute;
-  left: 50px;
-  top: 139px; 
-}
-main .right-side #cards .card-container .footer-card img{
+main .right-side #cards .card-container .card-footer {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
   width: 15px;
-  height: 15px;
+  position: absolute;
+  left: 67px;
+  top: 160px; 
+}
+main .right-side #cards .card-container .card-footer img{
+  width: 20px;
+  height: 20px;
   object-fit: cover;
 }
+
 
 
 
@@ -262,6 +311,10 @@ main .right-side #cards .card-container .footer-card img{
 .submit-btn:active {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+#save-changes-btn {
+  width: 150px;
+  display: none;
+}
 #close-form {
   position: absolute;
   top: 1px;
@@ -278,7 +331,7 @@ main .right-side #cards .card-container .footer-card img{
 }
 
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .form-container {
       width: 95%;
       margin: 10px auto;
@@ -345,4 +398,4 @@ main .right-side #cards .card-container .footer-card img{
     height: 100px;
   
   }
-}
+} */

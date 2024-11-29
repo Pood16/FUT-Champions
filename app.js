@@ -1,7 +1,7 @@
 
 // ========
 let players = JSON.parse(localStorage.getItem("players")) || [];
-afficherCards();
+createCard();
 // display and hide form
 let form = document.getElementById("player-form");
 let formModal = document.querySelector(".form-box");
@@ -10,9 +10,12 @@ let closeModal = document.getElementById("close-form");
 const buttonForm = document.getElementById("submit-btn");
 openModal.addEventListener("click", function(){
     formModal.style.display = "flex";
+    buttonForm.style.display = "block";
+    saveBtn.style.display = "none";
 })
 closeModal.addEventListener("click", function(){
     formModal.style.display = "none";
+    
 })
 window.addEventListener("click", function(e){
     if(e.target == formModal){
@@ -145,7 +148,6 @@ form.addEventListener("submit", function(e){
   // form inputs
   const textInputs = document.querySelectorAll('input[type="text"]');
   const numberInputs = document.querySelectorAll('input[type="number"]');
-  const urlInputs = document.querySelectorAll('input[type="url"]');
 
   // error container
   function createError(input, message){
@@ -178,13 +180,13 @@ form.addEventListener("submit", function(e){
   numberInputs.forEach(input => checkNumbers(input));
 
     if(isValid){
-        createCard(); 
+        createPlayer(); 
     }else{
         e.preventDefault();
     }
 })
 // Created card function 
-function createCard(){
+function createPlayer(){
 
     let playerInformation;
     const positioStats = document.getElementById("player-position").value;
@@ -197,7 +199,7 @@ function createCard(){
         flag: document.getElementById("player-flag").value.trim(),
         club: document.getElementById("player-club-name").value.trim(),
         logo: document.getElementById("player-club").value,
-    rating: parseInt(document.getElementById("player-rating").value)
+        rating: parseInt(document.getElementById("player-rating").value)
     };
 
     if (positioStats === "GK"){
@@ -223,9 +225,9 @@ function createCard(){
     }
     players.unshift(playerInformation);
     localStorage.setItem("players", JSON.stringify(players));
-    afficherCards();
+    createCard();
 }
-function afficherCards(){
+function createCard(){
     let cardsContainer = document.getElementById("cards");
     cardsContainer.innerHTML = '';
     players.forEach(player =>{
@@ -236,70 +238,201 @@ function afficherCards(){
         let partieNonCommun;
         if (player.position === "GK"){
             partieNonCommun = `
-                 <div class="horizental-stats">
-                  <p>DIV</p>
-                  <p style="font-weight: 700;">${player.diving}</p>
-                  <p>HAN</p>
-                  <p style="font-weight: 700;">${player.handling}</p>
-                  <p>CIK</p>
-                  <p style="font-weight: 700;">${player.kicking}</p>
+                 <div class="statistics">
+                    <div class="field-group">
+                        <span class="property-title">DIV</span>
+                        <span class="property-value">${player.diving}</span>
+                    </div>
+                    <div class="field-group">
+                        <span class="property-title">HAN</span>
+                        <span class="property-value">${player.handling}</span>
+                    </div>
+                    <div class="field-group">
+                        <span class="property-title">KIC</span>
+                        <span class="property-value">${player.kicking}</span>
+                    </div>
+                    <div class="field-group">
+                        <span class="property-title">REF</span>
+                        <span class="property-value">${player.reflexe}</span>
+                    </div>
+                    <div class="field-group">
+                        <span class="property-title">SPE</span>
+                        <span class="property-value">${player.speed}</span>
+                    </div>
+                    <div class="field-group">
+                        <span class="property-title">POS</span>
+                        <span class="property-value">${player.positioning}</span>
+                    </div>
                 </div>
-                <table>
-                    <tr>
-                      <td>REF</td>
-                      <td>SPE</td>
-                      <td>POS</td>
-                    </tr>
-                    <tr>
-                      <td style="font-weight: 700;">${player.reflexes}</td>
-                      <td style="font-weight: 700;">${player.speed}</td>
-                      <td style="font-weight: 700;">${player.positioning}</td>
-                    </tr>
-                  </table>
-            `
+                    <div class="card-footer">
+                    <img src="${player.flag}" alt="${player.nationality} flag" class="country-flag">
+                    <img src="${player.logo}" alt="${player.club}" class="club-logo">
+                    </div>
+            `;
         }else{
             partieNonCommun = 
                 `
-                <div class="horizental-stats">
-                  <p>PAC</p>
-                  <p style="font-weight: 700;">${player.pace}</p>
-                  <p>SHO</p>
-                  <p style="font-weight: 700;">${player.shooting}</p>
-                  <p>PAS</p>
-                  <p>${player.passing}</p>
+                <div class="statistics">
+                    <div class="field-group">
+                        <span class="property-title">PAC</span>
+                        <span class="property-value">${player.pace}</span>
+                    </div>
+                    <div class="field-group">
+                        <span class="property-title">SHO</span>
+                        <span class="property-value">${player.shooting}</span>
+                    </div>
+                    <div class="field-group">
+                        <span class="property-title">PAS</span>
+                        <span class="property-value">${player.passing}</span>
+                    </div>
+                    <div class="field-group">
+                        <span class="property-title">DRI</span>
+                        <span class="property-value">${player.dribbling}</span>
+                    </div>
+                    <div class="field-group">
+                        <span class="property-title">DEF</span>
+                        <span class="property-value">${player.defending}</span>
+                    </div>
+                    <div class="field-group">
+                        <span class="property-title">PHY</span>
+                        <span class="property-value">${player.physical}</span>
+                    </div>
                 </div>
-                <table>
-                    <tr>
-                      <td>DEF</td>
-                      <td>DRI</td>
-                      <td>PHY</td>
-                    </tr>
-                    <tr>
-                      <td style="font-weight: 700;">${player.defending}</td>
-                      <td style="font-weight: 700;">${player.dribbling}</td>
-                      <td style="font-weight: 700;">${player.physical}</td>
-                    </tr>
-                  </table>
+                    <div class="card-footer">
+                        <img src="${player.flag}" alt="${player.nationality} flag" class="country-flag">
+                        <img src="${player.logo}" alt="${player.club}" class="club-logo">
+                    </div>
       `
         }
         playerContainer.innerHTML = `
-            <span class="icons add"><i class="fa-solid fa-user-plus"></i></span>
-            <span class="icons edit"><i class="fa-solid fa-user-pen"></i></span>
             <img src="img/bg/card.webp" alt="card background" width="100%"/>
-                <div class="position-rate">
-                  <p>${player.rating}</p>
-                  <p>${player.position}</p>
-                </div>
-                <img src="${player.photo}" alt="${playerName[0]}" class="player-profile">
-                <h3 class="player-name">${playerName[0]}</h3>
-                <div class="footer-card">
-                  <img src="${player.flag}" alt="country flag" class="country-flag" width="15px">
-                  <img src="${player.logo}" alt="club flag" class="club-flag" width="15px">
-                </div>
-                ${partieNonCommun}
+            <div class="group header-left">
+                <p>${player.rating}</p>
+                <p class="header-position">${player.position}</p>
+            </div>
+            <img src="${player.photo}" alt="${playerName[0]} profile" class="player-profile">
+            <span class="player-name">${playerName[0]}</span>
+            ${partieNonCommun}
+            <div class="icons-container">
+                <span class="icons add"><i class="fa-solid fa-user-plus"></i></span>
+                <span class="icons edit"><i class="fa-solid fa-user-pen"></i></span>
+                <span class="icons edit"><i class="fa-solid fa-user-xmark"></i></span>
+            </div>
     
         `;
         cardsContainer.appendChild(playerContainer);
     })
 }
 
+
+const edit = document.querySelector(".edit");
+const add = document.querySelector(".add");
+const saveBtn = document.getElementById("save-changes-btn");
+edit.addEventListener("click", function(e){
+    formModal.style.display = "flex";
+    saveBtn.style.display = "block";
+    buttonForm.style.display = "none";
+    const parentContainer = e.target.parentNode.parentNode.parentNode;
+    playerNameEdit = parentContainer.children[3].textContent;
+    playerPositionEdit = parentContainer.children[1].children[0].textContent;
+    playerRateEdit = parentContainer.children[1].children[1].textContent;
+    console.log(players)
+    // player in players
+    const editPlayer = players.filter((player => player.name === playerNameEdit));
+    console.log(editPlayer)
+})
+add.addEventListener("click", function(){
+    console.log("add is clicked");
+})
+
+
+
+// formula function
+const formations = [
+    {
+      formation: "4-4-2",
+      forward: 2,
+      midfield: 4,
+      defense: 4,
+      goalkeeper: 1,
+      prototype: {
+        forward: [
+          { pos: "st", x: 35, y: 30 },
+          { pos: "st", x: 65, y: 30 },
+        ],
+        midfield: [
+          { pos: "cm", x: 15, y: 45 },
+          { pos: "cm", x: 35, y: 50 },
+          { pos: "cm", x: 65, y: 50 },
+          { pos: "cm", x: 85, y: 45 },
+        ],
+        defense: [
+          { pos: "cb", x: 20, y: 70 },
+          { pos: "cb", x: 40, y: 75 },
+          { pos: "cb", x: 60, y: 75 },
+          { pos: "cb", x: 80, y: 70 },
+        ],
+        goalkeeper: [{ pos: "gk", x: 50, y: 95 }],
+      },
+    },
+    {
+      formation: "4-3-3",
+      forward: 3,
+      midfield: 3,
+      defense: 4,
+      goalkeeper: 1,
+      prototype: {
+        forward: [
+          { pos: "st", x: 20, y: 30 },
+          { pos: "st", x: 50, y: 25 },
+          { pos: "st", x: 80, y: 30 },
+        ],
+        midfield: [
+          { pos: "cm", x: 30, y: 55 },
+          { pos: "cm", x: 50, y: 50 },
+          { pos: "cm", x: 70, y: 55 },
+        ],
+        defense: [
+          { pos: "cb", x: 20, y: 70 },
+          { pos: "cb", x: 40, y: 75 },
+          { pos: "cb", x: 60, y: 75 },
+          { pos: "cb", x: 80, y: 70 },
+        ],
+        goalkeeper: [{ pos: "gk", x: 50, y: 95 }],
+      },
+    },
+  ];
+  
+  function repositionCards(x) {
+    const formation = formations.find(element => element.formation === x);
+    const cards = document.querySelectorAll(".single-card");
+    let cardIndex = 0;
+    for (let i = 0; i < formation.forward; i++) {
+      const card = cards[cardIndex];
+      card.style.left = formation.prototype.forward[i].x + "%";
+      card.style.top = formation.prototype.forward[i].y + "%";
+      cardIndex++;
+    }
+    for (let i = 0; i < formation.midfield; i++) {
+      const card = cards[cardIndex++];
+      card.style.left = formation.prototype.midfield[i].x + "%";
+      card.style.top = formation.prototype.midfield[i].y + "%";
+    }
+    for (let i = 0; i < formation.defense; i++) {
+      const card = cards[cardIndex++];
+      card.style.left = formation.prototype.defense[i].x + "%";
+      card.style.top = formation.prototype.defense[i].y + "%";
+    }
+
+      const card = cards[cardIndex++];
+      card.style.left = formation.prototype.goalkeeper[0].x + "%";
+      card.style.top = formation.prototype.goalkeeper[0].y + "%";
+    
+  }
+//   valeur de input select
+  let formulaType = document.getElementById("formulation-select");
+  formulaType.addEventListener("change", function(){
+      const formulaValue = formulaType.value.trim();
+      repositionCards(formulaValue); 
+  })
+  
