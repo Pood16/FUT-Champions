@@ -2,8 +2,9 @@
 // ========
 let players = JSON.parse(localStorage.getItem("players")) || [];
 // Functions
-removePlayer();
 createCard();
+removePlayer();
+editPlayer();
 // display and hide form
 let form = document.getElementById("player-form");
 let formModal = document.querySelector(".form-box");
@@ -14,6 +15,7 @@ const buttonForm = document.getElementById("submit-btn");
 openModal.addEventListener("click", function(){
     formModal.style.display = "flex";
     buttonForm.style.display = "block";
+    form.reset();
 })
 closeModal.addEventListener("click", function(){
     formModal.style.display = "none";
@@ -45,80 +47,80 @@ document.getElementById("player-position").addEventListener("change", function()
         a = `
             <div class="field">
                 <label for="handling">Handeling :</label>
-                <input type="number" id="handling" min="1" max="99" placeholder=" 99 "/>
+                <input type="number" id="handling" name="playerHandling" min="1" max="99" placeholder=" 99"/>
             </div>
               
         `
         b = `
             <div class="field">
                 <label for="kicking">Kicking :</label>
-                <input type="number" id="kicking" min="1" max="99" placeholder=" 99 "/>
+                <input type="number" id="kicking" name="playerKicking" min="1" max="99" placeholder=" 99 "/>
             </div>     
         `
         c = `
             <div class="field">
                 <label for="reflexes">Reflex :</label>
-                <input type="number" id="reflexes" min="1" max="99" placeholder=" 99 "/>
+                <input type="number" id="reflexes" name="playerReflexes" min="1" max="99" placeholder=" 99 "/>
             </div>
               
         `
         d = `
             <div class="field">
                 <label for="speed">Speed :</label>
-                <input type="number" id="speed" min="1" max="99" placeholder=" 99 "/>
+                <input type="number" id="speed" name="playerSpeed" min="1" max="99" placeholder=" 99 "/>
             </div>     
         `
         e = `
             <div class="field">
                 <label for="positioning">Positioning :</label>
-                <input type="number" id="positioning" min="1" max="99" placeholder=" 99 "/>
+                <input type="number" id="positioning" name="playerPositioning" min="1" max="99" placeholder=" 99 "/>
             </div>
               
         `
         f = `
             <div class="field">
                 <label for="diving">Diving :</label>
-                <input type="number" id="diving" min="1" max="99" placeholder=" 99 "/>
+                <input type="number" id="diving" name="playerDiving" min="1" max="99" placeholder=" 99 "/>
             </div>     
         `
     }else{
         a = `
         <div class="field">
             <label for="physical">Physical :</label>
-            <input type="number" id="physical" min="1" max="99" placeholder=" 99 "/>
+            <input type="number" name="playerPhysical" id="physical" min="1" max="99" placeholder=" 99 "/>
         </div>
           
     `
     b = `
         <div class="field">
             <label for="pace">Pace :</label>
-            <input type="number" id="pace" min="1" max="99" placeholder=" 99 "/>
+            <input type="number" id="pace" name="playerPace" min="1" max="99" placeholder=" 99 "/>
         </div>     
     `
     c = `
         <div class="field">
             <label for="shooting">Shooting :</label>
-            <input type="number" id="shooting" min="1" max="99" placeholder=" 99 "/>
+            <input type="number" id="shooting" name="playerShooting" min="1" max="99" placeholder=" 99 "/>
         </div>
           
     `
     d = `
         <div class="field">
             <label for="passing">Passing :</label>
-            <input type="number" id="passing" min="1" max="99" placeholder=" 99 "/>
+            <input type="number" id="passing" name="playerPassing" min="1" max="99" placeholder=" 99 "/>
         </div>     
     `
     e = `
         <div class="field">
             <label for="dribbling">Dribbling :</label>
-            <input type="number" id="dribbling" min="1" max="99" placeholder=" 99 "/>
+            <input type="number" id="dribbling" name="playerDribbling" min="1" max="99" placeholder=" 99 "/>
         </div>
           
     `
     f = `
         <div class="field">
             <label for="defending">Defending :</label>
-            <input type="number" id="defending" min="1" max="99" placeholder=" 99 "/>
+            <input type="number" id="defending" name="playerDefending" min="1" max="99" placeholder=" 99 "/>
         </div>     
     `
     }
@@ -232,9 +234,8 @@ function createPlayer(){
     }
     players.unshift(playerInformation);
     localStorage.setItem("players", JSON.stringify(players));
-    createCard();
 }
-// removePlayer();
+
 function createCard(){
     let updatedPlayers = JSON.parse(localStorage.getItem("players")) || [];
     let cardsContainer = document.getElementById("cards");
@@ -334,11 +335,6 @@ function createCard(){
     removePlayer();
 }
 
-
-
-
-
-
 //========================= formula function
 const formations = [
     {
@@ -427,21 +423,18 @@ const formations = [
       const formulaValue = formulaType.value.trim();
       repositionCards(formulaValue); 
   })
-//   ================================= Remove player Function
-// buttonForm form
 
+
+//   ================================= Remove player Function
 function removePlayer() {
     const deleteIcons = document.querySelectorAll(".delete");
     deleteIcons.forEach(element => element.addEventListener("click", function(e){
     const parentCard = e.target.closest('.card-container');
     const targetName = parentCard.children[3].textContent.trim();
-    const targetPosition = parentCard.querySelector(".header-left .header-position").textContent.trim();
-    console.log(targetPosition);
-    
+
     // remove the player 
     
     players = players.filter(player => player.name.trim() !== targetName);
-    
     
     // update the cards 
     localStorage.setItem("players", JSON.stringify(players));
@@ -449,6 +442,48 @@ function removePlayer() {
 }));
 }
 
+// ================================== Edit player function
+function editPlayer() {
+    const editIcons = document.querySelectorAll(".edit");
+    editIcons.forEach(element => element.addEventListener("click", function(e){
+        const parentCard = e.target.closest('.card-container');
+        const targetName = parentCard.children[3].textContent.trim();  
+        const playerIndex = players.findIndex((player) => player.name === targetName);
+        openModal.click();
+        form.playerName.value = players[playerIndex].name;
+        form.playeRating.value = players[playerIndex].rating;
+        form.playerNationality.value = players[playerIndex].nationality;
+        form.playerImage.value = players[playerIndex].photo;
+        form.playerFlag.value = players[playerIndex].flag;
+        form.playerClubName.value = players[playerIndex].club;
+        form.playerPosition.value = players[playerIndex].position;
+        form.playerClublogo.value = players[playerIndex].logo;
+        console.log(form.playerPosition.value);
+        const event = new Event('change');
+        form.playerPosition.dispatchEvent(event);
+        if (players[playerIndex].position === "GK"){
+            form.playerHandling.value = players[playerIndex].handling;
+            form.playerKicking.value = players[playerIndex].kicking;
+            form.playerReflexes.value = players[playerIndex].reflexe;
+            form.playerSpeed.value = players[playerIndex].speed;
+            form.playerPositioning.value = players[playerIndex].position;
+            form.playerDiving.value = players[playerIndex].diving;
+        }else{
+            form.playerPhysical.value = players[playerIndex].physical;
+            form.playerPace.value = players[playerIndex].pace;
+            form.playerShooting.value = players[playerIndex].shooting;
+            form.playerPassing.value = players[playerIndex].passing;
+            form.playerDribbling.value = players[playerIndex].dribbling;
+            form.playerDefending.value = players[playerIndex].defending;
+        }
+        buttonForm.innerText = "Save Changes";
+        buttonForm.style.width= "200px";
+        
+
+    }))
+
+
+}
 
 
 
