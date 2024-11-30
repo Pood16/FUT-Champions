@@ -183,12 +183,14 @@ main .right-side #cards .card-container .player-profile {
   width: 85px;
 }
 main .right-side #cards .card-container .player-name {
-   position: absolute;
-    left: 54px;
-    top: 118px;
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 0;
+  width: 80%;
+  position: absolute;
+  text-align: center;
+  left: 15px;
+  top: 118px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 0;
 }
 main .right-side #cards .card-container .statistics{
   display: flex;

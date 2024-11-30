@@ -1,6 +1,8 @@
 
 // ========
 let players = JSON.parse(localStorage.getItem("players")) || [];
+// Functions
+removePlayer();
 createCard();
 // display and hide form
 let form = document.getElementById("player-form");
@@ -8,18 +10,24 @@ let formModal = document.querySelector(".form-box");
 let openModal = document.getElementById("open-form");
 let closeModal = document.getElementById("close-form");
 const buttonForm = document.getElementById("submit-btn");
+
 openModal.addEventListener("click", function(){
     formModal.style.display = "flex";
     buttonForm.style.display = "block";
-    // saveBtn.style.display = "none";
 })
 closeModal.addEventListener("click", function(){
     formModal.style.display = "none";
+    form.reset();
+    const messages = document.querySelectorAll(".error-style");
+    messages.forEach(message => message.remove());
     
 })
 window.addEventListener("click", function(e){
     if(e.target == formModal){
         formModal.style.display = "none";
+        form.reset();
+        const messages = document.querySelectorAll(".error-style");
+        messages.forEach(message => message.remove());
     }
 })
 
@@ -141,9 +149,9 @@ document.getElementById("player-position").addEventListener("change", function()
 })
 // ===========================  validation de form
 form.addEventListener("submit", function(e){
-    e.preventDefault();
+    // e.preventDefault();
     let isValid = true;
-    const messages = document.querySelectorAll(".error-style");
+  const messages = document.querySelectorAll(".error-style");
   messages.forEach(message => message.remove());
   // form inputs
   const textInputs = document.querySelectorAll('input[type="text"]');
@@ -190,10 +198,8 @@ function createPlayer(){
 
     let playerInformation;
     const positioStats = document.getElementById("player-position").value;
-    let theName = document.getElementById("player-name").value.trim().split(" ");
     const communPart = {
-        
-        name: theName[0],
+        name: document.getElementById("player-name").value.trim(),
         photo: document.getElementById("player-image").value.trim(),
         position: positioStats,
         nationality: document.getElementById("player-nationality").value.trim(),
@@ -201,7 +207,6 @@ function createPlayer(){
         club: document.getElementById("player-club-name").value.trim(),
         logo: document.getElementById("player-club").value,
         rating: parseInt(document.getElementById("player-rating").value),
-        stats: "keep"
     };
 
     if (positioStats === "GK"){
@@ -229,15 +234,15 @@ function createPlayer(){
     localStorage.setItem("players", JSON.stringify(players));
     createCard();
 }
-removePlayer();
+// removePlayer();
 function createCard(){
-    let playerss = JSON.parse(localStorage.getItem("players")) || [];
+    let updatedPlayers = JSON.parse(localStorage.getItem("players")) || [];
     let cardsContainer = document.getElementById("cards");
     cardsContainer.innerHTML = '';
-    playerss.forEach(player =>{
+    updatedPlayers.forEach(player =>{
         const playerContainer = document.createElement("div");
         playerContainer.className = "card-container";
-        const playerName = player.name.trim().split(" ");
+        const firstName = player.name.trim().split(" ");
 
         let partieNonCommun;
         if (player.position === "GK"){
@@ -314,8 +319,8 @@ function createCard(){
                 <p>${player.rating}</p>
                 <p class="header-position">${player.position}</p>
             </div>
-            <img src="${player.photo}" alt="${playerName[0]} profile" class="player-profile">
-            <span class="player-name">${playerName[0]}</span>
+            <img src="${player.photo}" alt="${player.name} profile" class="player-profile">
+            <div class="player-name">${player.name}</div>
             ${partieNonCommun}
             <div class="icons-container">
                 <span class="icons add"><i class="fa-solid fa-user-plus"></i></span>
@@ -428,19 +433,22 @@ const formations = [
 function removePlayer() {
     const deleteIcons = document.querySelectorAll(".delete");
     deleteIcons.forEach(element => element.addEventListener("click", function(e){
-    const card = e.target.closest('.card-container');
-    const targetName = card.children[3].textContent.trim();
+    const parentCard = e.target.closest('.card-container');
+    const targetName = parentCard.children[3].textContent.trim();
+    const targetPosition = parentCard.querySelector(".header-left .header-position").textContent.trim();
+    console.log(targetPosition);
     
     // remove the player 
-    console.log(players);
+    
     players = players.filter(player => player.name.trim() !== targetName);
-    console.log(players);
+    
     
     // update the cards 
     localStorage.setItem("players", JSON.stringify(players));
     createCard();
 }));
 }
+
 
 
 
