@@ -3,33 +3,38 @@
 let players = JSON.parse(localStorage.getItem("players")) || [];
 createCard();
 // --------------  DOM 
-let form = document.getElementById("player-form");
-let formModal = document.querySelector(".form-box");
-let openModal = document.getElementById("open-form");
+let form = document.getElementById("player-form");//player form
+let formModal = document.querySelector(".form-box");//model container
+let openModal = document.getElementById("open-form");//add player btn
 let closeModal = document.getElementById("close-form");
-const saveForm = document.getElementById("submit-btn");
-const updatePlayerForm = document.getElementById("save-change-btn");
+const saveForm = document.getElementById("submit-btn");//crrate button
+const saveUpdateBtn = document.getElementById("save-change-btn");
 
 // -------------------  actions on add player Form
-openModal.addEventListener("click", function(){
+openModal.addEventListener("click", openModalForm);
+closeModal.addEventListener("click", closeModalForm);
+function openModalForm(){
     formModal.style.display = "flex";
+    saveUpdateBtn.style.display = "none";
+    saveForm.style.display = "block";
     form.reset();
-})
-closeModal.addEventListener("click", function(){
+}
+function closeModalForm(){
     formModal.style.display = "none";
+    // clearErrorMessages()  
     form.reset();
-    const messages = document.querySelectorAll(".error-style");
-    messages.forEach(message => message.remove());
-    
-})
+}
 window.addEventListener("click", function(e){
     if(e.target == formModal){
         formModal.style.display = "none";
+        // clearErrorMessages()
         form.reset();
-        const messages = document.querySelectorAll(".error-style");
-        messages.forEach(message => message.remove());
     }
 })
+function clearErrorMessages(){
+    const messages = document.querySelectorAll(".error-style");
+    messages.forEach(message => message.remove());
+}
 
 // --------------------- action on position selector 
 document.getElementById("player-position").addEventListener("change", function(){
@@ -455,10 +460,13 @@ function editPlayer() {
     const editIcons = document.querySelectorAll(".edit");
     
     editIcons.forEach(element => element.addEventListener("click", function(e){
+        
         const parentCard = e.target.closest('.card-container');
         const targetName = parentCard.children[3].textContent.trim(); 
         playerIndex = players.findIndex((player) => player.name === targetName);
         openModal.click();
+        saveUpdateBtn.style.display = "block";
+        saveForm.style.display = "none";
         form.playerName.value = players[playerIndex].name;
         form.playeRating.value = players[playerIndex].rating;
         form.playerNationality.value = players[playerIndex].nationality;
@@ -484,9 +492,10 @@ function editPlayer() {
             form.playerDribbling.value = players[playerIndex].dribbling;
             form.playerDefending.value = players[playerIndex].defending;
         } 
-        updatePlayerForm.onclick = function(e) {
+        saveUpdateBtn.onclick = function(e) {
             e.preventDefault();
             updatePlayerInLocal(playerIndex);
+            form.reset();
             createCard();
         };
     }))
