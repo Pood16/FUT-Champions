@@ -1,20 +1,18 @@
 
-// ========
+// ----------------------- initialisation
 let players = JSON.parse(localStorage.getItem("players")) || [];
-// Functions
 createCard();
-removePlayer();
-editPlayer();
-// display and hide form
+// --------------  DOM 
 let form = document.getElementById("player-form");
 let formModal = document.querySelector(".form-box");
 let openModal = document.getElementById("open-form");
 let closeModal = document.getElementById("close-form");
-const buttonForm = document.getElementById("submit-btn");
+const saveForm = document.getElementById("submit-btn");
+const updatePlayerForm = document.getElementById("save-change-btn");
 
+// -------------------  actions on add player Form
 openModal.addEventListener("click", function(){
     formModal.style.display = "flex";
-    buttonForm.style.display = "block";
     form.reset();
 })
 closeModal.addEventListener("click", function(){
@@ -33,7 +31,7 @@ window.addEventListener("click", function(e){
     }
 })
 
-// the position select
+// --------------------- action on position selector 
 document.getElementById("player-position").addEventListener("change", function(){
     Array.from(document.getElementsByClassName("added-by-js")).forEach(element => element.remove());
     const position = document.getElementById("player-position");
@@ -83,6 +81,8 @@ document.getElementById("player-position").addEventListener("change", function()
                 <input type="number" id="diving" name="playerDiving" min="1" max="99" placeholder=" 99 "/>
             </div>     
         `
+    }else if (position.value === ""){
+        Array.from(document.getElementsByClassName("added-by-js")).forEach(element => element.remove());
     }else{
         a = `
         <div class="field">
@@ -142,14 +142,14 @@ document.getElementById("player-position").addEventListener("change", function()
     divD.innerHTML = d;
     divE.innerHTML = e;
     divF.innerHTML = f;
-    form.insertBefore(divA, buttonForm);
-    form.insertBefore(divB, buttonForm);
-    form.insertBefore(divC, buttonForm);
-    form.insertBefore(divD, buttonForm);
-    form.insertBefore(divE, buttonForm);
-    form.insertBefore(divF, buttonForm);
+    form.insertBefore(divA, saveForm);
+    form.insertBefore(divB, saveForm);
+    form.insertBefore(divC, saveForm);
+    form.insertBefore(divD, saveForm);
+    form.insertBefore(divE, saveForm);
+    form.insertBefore(divF, saveForm);
 })
-// ===========================  validation de form
+//----------------------  validation de form
 form.addEventListener("submit", function(e){
     // e.preventDefault();
     let isValid = true;
@@ -190,12 +190,13 @@ form.addEventListener("submit", function(e){
   numberInputs.forEach(input => checkNumbers(input));
 
     if(isValid){
+        // editPlayer();
         createPlayer(); 
     }else{
         e.preventDefault();
     }
 })
-// .............. Created card and players functions
+// ------------------ Create player function
 function createPlayer(){
 
     let playerInformation;
@@ -236,6 +237,8 @@ function createPlayer(){
     localStorage.setItem("players", JSON.stringify(players));
 }
 
+
+// --------------- createCard Function
 function createCard(){
     let updatedPlayers = JSON.parse(localStorage.getItem("players")) || [];
     let cardsContainer = document.getElementById("cards");
@@ -332,6 +335,7 @@ function createCard(){
         `;
         cardsContainer.appendChild(playerContainer);
     })
+    editPlayer();
     removePlayer();
 }
 
@@ -390,6 +394,7 @@ const formations = [
       },
     },
   ];
+  repositionCards("4-4-2"); 
 
   function repositionCards(x) {
     const formation = formations.find(element => element.formation.trim() === x);
@@ -417,6 +422,7 @@ const formations = [
       card.style.top = formation.prototype.goalkeeper[0].y + "%";
     
   }
+
 //   valeur de input select
   let formulaType = document.getElementById("formulation-select");
   formulaType.addEventListener("change", function(){
@@ -431,6 +437,7 @@ function removePlayer() {
     deleteIcons.forEach(element => element.addEventListener("click", function(e){
     const parentCard = e.target.closest('.card-container');
     const targetName = parentCard.children[3].textContent.trim();
+    
 
     // remove the player 
     
@@ -441,14 +448,16 @@ function removePlayer() {
     createCard();
 }));
 }
-
-// ================================== Edit player function
+// var playerIndex;
+// ================================== Edit player 
+let playerIndex;
 function editPlayer() {
     const editIcons = document.querySelectorAll(".edit");
+    
     editIcons.forEach(element => element.addEventListener("click", function(e){
         const parentCard = e.target.closest('.card-container');
-        const targetName = parentCard.children[3].textContent.trim();  
-        const playerIndex = players.findIndex((player) => player.name === targetName);
+        const targetName = parentCard.children[3].textContent.trim(); 
+        playerIndex = players.findIndex((player) => player.name === targetName);
         openModal.click();
         form.playerName.value = players[playerIndex].name;
         form.playeRating.value = players[playerIndex].rating;
@@ -458,7 +467,6 @@ function editPlayer() {
         form.playerClubName.value = players[playerIndex].club;
         form.playerPosition.value = players[playerIndex].position;
         form.playerClublogo.value = players[playerIndex].logo;
-        console.log(form.playerPosition.value);
         const event = new Event('change');
         form.playerPosition.dispatchEvent(event);
         if (players[playerIndex].position === "GK"){
@@ -475,16 +483,43 @@ function editPlayer() {
             form.playerPassing.value = players[playerIndex].passing;
             form.playerDribbling.value = players[playerIndex].dribbling;
             form.playerDefending.value = players[playerIndex].defending;
-        }
-        buttonForm.innerText = "Save Changes";
-        buttonForm.style.width= "200px";
-        
-
+        } 
+        updatePlayerForm.onclick = function(e) {
+            e.preventDefault();
+            updatePlayerInLocal(playerIndex);
+            createCard();
+        };
     }))
-
-
 }
 
+function updatePlayerInLocal(index){
 
+    players[playerIndex].name = document.getElementById("player-name").value.trim();
+    players[playerIndex].photo = document.getElementById("player-image").value.trim();
+    players[playerIndex].position = form.playerPosition.value;
+    players[playerIndex].nationality = document.getElementById("player-nationality").value.trim();
+    players[playerIndex].flag = document.getElementById("player-flag").value.trim();
+    players[playerIndex].club = document.getElementById("player-club-name").value.trim();
+    players[playerIndex].logo = document.getElementById("player-club").value;
+    players[playerIndex].rating = parseInt(document.getElementById("player-rating").value);
+
+
+    if (form.playerPosition.value === "GK"){
+            players[playerIndex].diving = parseInt(document.getElementById("diving").value);
+            players[playerIndex].handling = parseInt(document.getElementById("handling").value);
+            players[playerIndex].kicking =parseInt( document.getElementById("kicking").value);
+            players[playerIndex].reflexe  = parseInt(document.getElementById("reflexes").value);
+            players[playerIndex].speed =parseInt( document.getElementById("speed").value);
+            players[playerIndex].positioning = parseInt(document.getElementById("positioning").value);
+        }else{
+            players[playerIndex].pace = parseInt(document.getElementById("pace").value);
+            players[playerIndex].shooting =parseInt( document.getElementById("shooting").value);
+            players[playerIndex].passing = parseInt(document.getElementById("passing").value);
+            players[playerIndex].dribbling = parseInt(document.getElementById("dribbling").value);
+            players[playerIndex].defending =parseInt( document.getElementById("defending").value);
+            players[playerIndex].physical =parseInt( document.getElementById("physical").value);
+        }
+        localStorage.setItem("players", JSON.stringify(players));
+}
 
   

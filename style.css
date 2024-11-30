@@ -282,7 +282,7 @@ main .right-side #cards .card-container .card-footer img{
 }
 
 
-.submit-btn {
+.form-btn {
   width: 100px;
   background-color: #4a90e2;
   margin-top: 20px;
@@ -297,17 +297,17 @@ main .right-side #cards .card-container .card-footer img{
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.submit-btn:hover {
+.form-btn:hover {
   background-color: #357abd;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.submit-btn:active {
+.form-btn:active {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-#save-changes-btn {
-  width: 150px;
-  display: none;
+#save-change-btn {
+  width: 200px;
+
 }
 #close-form {
   position: absolute;
@@ -342,9 +342,9 @@ main .right-side #cards .card-container .card-footer img{
 
 
 @media(max-width: 425px){
-  header{
+  /* header{
     
-  }
+  } */
   
   header img{
     width: 150px;
