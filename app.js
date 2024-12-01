@@ -21,7 +21,6 @@ function openModalForm(){
 }
 function closeModalForm(){
     formModal.style.display = "none";
-    // clearErrorMessages()  
     form.reset();
 }
 window.addEventListener("click", function(e){
@@ -354,22 +353,22 @@ const formations = [
       goalkeeper: 1,
       prototype: {
         forward: [
-          { pos: "st", x: 35, y: 30 },
-          { pos: "st", x: 65, y: 30 },
+          { pos: "st", x: 35, y: 30, position: "ST"},
+          { pos: "st", x: 65, y: 30, position: "ST" },
         ],
         midfield: [
-          { pos: "cm", x: 15, y: 45 },
-          { pos: "cm", x: 35, y: 50 },
-          { pos: "cm", x: 65, y: 50 },
-          { pos: "cm", x: 85, y: 45 },
+          { pos: "cm", x: 15, y: 45, position: "LW" },
+          { pos: "cm", x: 35, y: 50, position: "CM" },
+          { pos: "cm", x: 65, y: 50, position: "CM" },
+          { pos: "cm", x: 85, y: 45, position: "RW" },
         ],
         defense: [
-          { pos: "cb", x: 20, y: 70 },
-          { pos: "cb", x: 40, y: 75 },
-          { pos: "cb", x: 60, y: 75 },
-          { pos: "cb", x: 80, y: 70 },
+          { pos: "cb", x: 20, y: 70, position: "LB" },
+          { pos: "cb", x: 40, y: 75, position: "CB" },
+          { pos: "cb", x: 60, y: 75, position: "CB" },
+          { pos: "cb", x: 80, y: 70, position: "RB" },
         ],
-        goalkeeper: [{ pos: "gk", x: 50, y: 95 }],
+        goalkeeper: [{ pos: "gk", x: 50, y: 95, position: "GK" }],
       },
     },
     {
@@ -380,27 +379,26 @@ const formations = [
       goalkeeper: 1,
       prototype: {
         forward: [
-          { pos: "st", x: 20, y: 30 },
-          { pos: "st", x: 50, y: 25 },
-          { pos: "st", x: 80, y: 30 },
+          { pos: "st", x: 20, y: 30, position: "LW" },
+          { pos: "st", x: 50, y: 25, position: "ST" },
+          { pos: "st", x: 80, y: 30, position: "RW" },
         ],
         midfield: [
-          { pos: "cm", x: 30, y: 55 },
-          { pos: "cm", x: 50, y: 50 },
-          { pos: "cm", x: 70, y: 55 },
+          { pos: "cm", x: 30, y: 55, position: "CM" },
+          { pos: "cm", x: 50, y: 50, position: "CM" },
+          { pos: "cm", x: 70, y: 55, position: "CM" },
         ],
         defense: [
-          { pos: "cb", x: 20, y: 70 },
-          { pos: "cb", x: 40, y: 75 },
-          { pos: "cb", x: 60, y: 75 },
-          { pos: "cb", x: 80, y: 70 },
+          { pos: "cb", x: 20, y: 70, position: "LB" },
+          { pos: "cb", x: 40, y: 75, position: "CB" },
+          { pos: "cb", x: 60, y: 75, position: "CB" },
+          { pos: "cb", x: 80, y: 70, position: "RB" },
         ],
-        goalkeeper: [{ pos: "gk", x: 50, y: 95 }],
+        goalkeeper: [{ pos: "gk", x: 50, y: 95, position: "GK" }],
       },
     },
   ];
   repositionCards("4-4-2"); 
-
   function repositionCards(x) {
     const formation = formations.find(element => element.formation.trim() === x);
     const cards = document.querySelectorAll(".single-card");
@@ -409,23 +407,28 @@ const formations = [
       const card = cards[cardIndex];
       card.style.left = formation.prototype.forward[i].x + "%";
       card.style.top = formation.prototype.forward[i].y + "%";
+      card.setAttribute("position",formation.prototype.forward[i].position);
       cardIndex++;
     }
     for (let i = 0; i < formation.midfield; i++) {
       const card = cards[cardIndex++];
       card.style.left = formation.prototype.midfield[i].x + "%";
       card.style.top = formation.prototype.midfield[i].y + "%";
+      card.setAttribute("position",formation.prototype.midfield[i].position);
+      
     }
     for (let i = 0; i < formation.defense; i++) {
       const card = cards[cardIndex++];
       card.style.left = formation.prototype.defense[i].x + "%";
       card.style.top = formation.prototype.defense[i].y + "%";
+      card.setAttribute("position",formation.prototype.defense[i].position);
+     
     }
 
       const card = cards[cardIndex++];
       card.style.left = formation.prototype.goalkeeper[0].x + "%";
       card.style.top = formation.prototype.goalkeeper[0].y + "%";
-    
+      card.setAttribute("position", "GK");
   }
 
 //   valeur de input select
@@ -440,7 +443,7 @@ const formations = [
 function removePlayer() {
     const deleteIcons = document.querySelectorAll(".delete");
     deleteIcons.forEach(element => element.addEventListener("click", function(e){
-    const parentCard = e.target.closest('.card-container');
+    const parentCard = e.currentTarget.closest('.card-container');
     const targetName = parentCard.children[3].textContent.trim();
     
 
@@ -461,7 +464,7 @@ function editPlayer() {
     
     editIcons.forEach(element => element.addEventListener("click", function(e){
         
-        const parentCard = e.target.closest('.card-container');
+        const parentCard = e.currentTarget.closest('.card-container');
         const targetName = parentCard.children[3].textContent.trim(); 
         playerIndex = players.findIndex((player) => player.name === targetName);
         openModal.click();
@@ -531,4 +534,75 @@ function updatePlayerInLocal(index){
         localStorage.setItem("players", JSON.stringify(players));
 }
 
-  
+
+// add players to the pitch 
+const cardsCollection = document.querySelectorAll(".single-card");
+const pitch = document.querySelector(".pitch");
+
+// Create side bar for similar posts
+const sideModal = document.createElement("div");
+sideModal.classList.add("pitch-model");
+
+// Close button
+const closeBtn = document.createElement("span");
+closeBtn.classList.add("close-pitch-modal");
+closeBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+closeBtn.addEventListener("click", function(){
+    sideModal.style.transform = "translateX(100%)";
+});
+sideModal.appendChild(closeBtn);
+
+// append side bar 
+document.body.appendChild(sideModal);
+
+cardsCollection.forEach(card => card.addEventListener("click", function(e){
+    // Clear previous cards
+    const existingCards = sideModal.querySelectorAll('.similar-card');
+    existingCards.forEach(card => card.remove());
+
+    //the clicked card
+    const clickedCardInPitch = e.currentTarget;
+    
+    
+    // filter players
+    const positionInDiv = e.currentTarget.getAttribute("position");
+    const matchedPositions = players.filter(player => player.position === positionInDiv);
+    
+    matchedPositions.forEach(function(player){
+        console.log(player);
+        console.log(player.name);
+        console.log(player.position);
+        console.log(player.rating);
+        console.log(player.photo);
+        // Create player card
+        const cardContainer = document.createElement("div");
+        cardContainer.classList.add("similar-card");
+        cardContainer.innerHTML = `
+            <img src="${player.photo}" alt="${player.name}">
+            <h3>${player.name}</h3>
+            <p>Position: ${player.position}</p>
+            <p>Rating: ${player.rating}</p>
+        `;
+
+        cardContainer.addEventListener("click", function(){
+            clickedCardInPitch.innerHTML = `
+                <img src="img/bg/card.webp" alt="" class="card-bg">
+                <div class="player-overlay">
+                    <img src="${player.photo}" alt="${player.name}" class="player-image">
+                    <div class="player-info">
+                        <p class="player-name">${player.name}</p>
+                        <div class="sub-info">
+                            <p class="player-position">${player.position}</p>
+                            <p class="player-rating">${player.rating}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+            sideModal.style.transform = "translateX(100%)";
+        })
+        sideModal.appendChild(cardContainer);
+    });
+    //show the model
+    sideModal.style.transform = "translateX(0)";
+    console.log(sideModal);
+}));
