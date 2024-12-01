@@ -58,7 +58,11 @@ main .pitch .pitch-cards .single-card {
   top: -100%;
   left: -100%;
   width: 10%;
+  height: 100px;
   cursor: pointer;
+  background-image: url('img/bg/card.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
   
 }
 main .pitch .pitch-cards .single-card img {
@@ -105,6 +109,10 @@ main .right-side #cards {
   margin-top: 15px;
   overflow-y: scroll;
   height: calc(100vh - 50px - 80px);
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
 }
 main .right-side #cards .card-container{
   position: relative;
@@ -113,6 +121,7 @@ main .right-side #cards .card-container{
   cursor: pointer;  
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #4ade80;
 
 }
 main .right-side #cards .card-container .icons-container{
@@ -121,20 +130,23 @@ main .right-side #cards .card-container .icons-container{
   position: absolute;
   top: 0;
   left: 20px;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
   border-radius: 10px;
 }
 main .right-side #cards .card-container .icons-container .icons{
   color: white;
-  padding: 5px;
+  padding: 8px;
   border-radius: 50%;
   text-align: center;
 }
 main .right-side #cards .card-container .icons-container .icons:hover{
   color: red;
 }
+main .right-side #cards .card-container .icons-container .edit{
+  
+  margin: 1px 10px;
+
+}
+
 
 
 /* &************** */
@@ -396,6 +408,17 @@ main .right-side #cards .card-container .card-footer img{
   align-items: center;
   justify-content: center;
 }
+.player-overlay span {
+  font-size: 20px;
+  font-weight: 700;
+  position: absolute;
+  top: -11px;
+  left: 30px;
+  color: black;
+}
+.player-overlay span:hover{
+  color: red;
+}
 .player-overlay img{
   width: 40px;
   height: 50px;
@@ -442,10 +465,7 @@ main .right-side #cards .card-container .card-footer img{
 /* end */
 
 @media(max-width: 425px){
-  /* header{
-    
-  } */
-  
+
   header img{
     width: 150px;
     object-fit: cover;

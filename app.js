@@ -331,7 +331,6 @@ function createCard(){
             <div class="player-name">${player.name}</div>
             ${partieNonCommun}
             <div class="icons-container">
-                <span class="icons add"><i class="fa-solid fa-user-plus"></i></span>
                 <span class="icons edit"><i class="fa-solid fa-user-pen"></i></span>
                 <span class="icons delete"><i class="fa-solid fa-user-xmark"></i></span>
             </div>
@@ -569,11 +568,7 @@ cardsCollection.forEach(card => card.addEventListener("click", function(e){
     const matchedPositions = players.filter(player => player.position === positionInDiv);
     
     matchedPositions.forEach(function(player){
-        console.log(player);
-        console.log(player.name);
-        console.log(player.position);
-        console.log(player.rating);
-        console.log(player.photo);
+        
         // Create player card
         const cardContainer = document.createElement("div");
         cardContainer.classList.add("similar-card");
@@ -588,6 +583,7 @@ cardsCollection.forEach(card => card.addEventListener("click", function(e){
             clickedCardInPitch.innerHTML = `
                 <img src="img/bg/card.webp" alt="" class="card-bg">
                 <div class="player-overlay">
+                    <span class="x">X</span>
                     <img src="${player.photo}" alt="${player.name}" class="player-image">
                     <div class="player-info">
                         <p class="player-name">${player.name}</p>
@@ -601,8 +597,17 @@ cardsCollection.forEach(card => card.addEventListener("click", function(e){
             sideModal.style.transform = "translateX(100%)";
         })
         sideModal.appendChild(cardContainer);
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('x')) {
+                e.stopPropagation();
+                const card = e.target.closest('.single-card');
+                if (card) {
+                    card.innerHTML = '';
+                }
+            }
+        });
+        
     });
-    //show the model
     sideModal.style.transform = "translateX(0)";
-    console.log(sideModal);
+    
 }));
