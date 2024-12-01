@@ -5,7 +5,7 @@
   box-sizing: border-box;
 }
 body{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Roboto", sans-serif;
   background-color: #C2FFC7;
   height: 100vh;
 }
@@ -21,6 +21,14 @@ header{
   margin-bottom: -5px;
   display: flex;
   justify-content: space-between;
+}
+header p{
+  padding: 10px 5px;
+  font-size: 20px;
+  font-weight: 700;
+}
+header p span {
+  color: red;
 }
 
 main {
@@ -62,12 +70,12 @@ main .pitch .pitch-cards .single-card {
   cursor: pointer;
   background-image: url('img/bg/card.webp');
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
+  border: 1px solid black;
   
 }
-main .pitch .pitch-cards .single-card img {
-  width: 100%;
-}
+
 
 
 
@@ -81,6 +89,7 @@ main .right-side .nav-list {
      align-items: center;
      justify-content: space-between;
      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+     margin: 2px auto;
      
 }
 main .right-side .nav-list button, main .right-side .nav-list select{
@@ -215,12 +224,6 @@ main .right-side #cards .card-container .card-footer img{
   object-fit: cover;
 }
 
-
-
-
-
-
-
 /* Partie de formule */
 
 .form-box {
@@ -334,17 +337,6 @@ main .right-side #cards .card-container .card-footer img{
 }
 
 
-@media (max-width: 768px) {
-  .form-container {
-      width: 95%;
-      margin: 10px auto;
-      padding: 20px;
-  }
-
-  #player-form {
-      grid-template-columns: 1fr;
-  }
-}
 /* classes from js */
 .pitch-model {
   position: fixed;
@@ -412,20 +404,20 @@ main .right-side #cards .card-container .card-footer img{
   font-size: 20px;
   font-weight: 700;
   position: absolute;
-  top: -11px;
-  left: 30px;
+  top: -10%;
+  left: 43%;
   color: black;
 }
 .player-overlay span:hover{
   color: red;
 }
 .player-overlay img{
-  width: 40px;
-  height: 50px;
+  width: 70%;
+  height: 50%;
   object-fit: contain;
   position: absolute;
-  top: 10px;
-  left: 0;
+  top: 15%;
+  left: 11px;
 }
 
 
@@ -433,8 +425,8 @@ main .right-side #cards .card-container .card-footer img{
   color: black;
   font-size: 6px;
   position: absolute;
-  top: 60px;
-  left: 8px;
+  top: 63%;
+  left: 8%;
   padding: 2px;
   display: flex;
   flex-direction: column;
@@ -463,71 +455,99 @@ main .right-side #cards .card-container .card-footer img{
 
 
 /* end */
-
-@media(max-width: 425px){
-
-  header img{
-    width: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  header button{
-    padding: 5px 30px;
-    border: none;
-    border-radius: 10px;
-    background-color: white;
-    margin: 5px;
-    font-size: 1.2rem;
-    font-weight: 700; 
-    margin-left: auto;
-    cursor: pointer;
-  }
-
-  main {
-      display: flex;
-      flex-direction: column-reverse;
-      gap: 5px;
-      margin: 10px 15px;
-      max-width: 420px;
-  }
-  main .left-side{
-      width: 90%;
-      background-image: url('./img/bg/stadium_background.webp');
-      background-size: cover;
-      background-position: center;
-  }
-  main .right-side {
-      width: 90%;
-      height: 80px;
-      padding: 10px 30px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  main .right-side .nav-list {
-      display: flex;
-      justify-content: space-between;
-      padding: 5px 20px;
-      border-radius: 20px;
-  }
-  main .right-side .nav-list button {
-      padding: 10px 20px;
-      border-radius: 10px;
-      border: none;
-      background-color: #06b6d4;
-      cursor: pointer;
-      font-size: 1rem;
-      color: #020617;
-      display: block;
-  }
-  main .right-side .nav-list button:hover {
-      background-color: #0891b2;
-  }
-  main .right-side .nav-list button:active {
-      background-color: #0e7490;
-  }
-  main .right-side .nav-list .field-group {
-    border: 1px solid red;
-    width: 100px;
-    height: 100px;
+@media (max-width: 1440px){
+  .form-container {
+    width: 50%;
+    margin: 10px auto;
+    padding: 20px;
+}
+.field input,
+.field select {
+padding: 5px;
+border: 1px solid #ddd;
+border-radius: 5px;
+font-size: 14px;
+width: 100%;
+}
+}
+@media (max-width: 1024px) {
+    header{
+    width: 700px;
+    margin: 0 auto;
+    height: 45px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   
   }
+  main{
+    flex-direction: column;
+  }
+  main .left-side{
+    width: 700px;
+    height: 100%;
+    margin: 0 auto;
+  }
+  main .right-side {
+    width: 700px;
+    margin: 0 auto;
+  }
+  main .right-side #cards {
+    margin-top: 15px;
+    overflow-y: scroll;
+    padding-left: 15px;
+    height: calc(100vh - 50px - 80px);
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    
+  }
+  .form-container {
+      width: 50%;
+      margin: 10px auto;
+      padding: 20px;
+  }
+  .field input,
+.field select {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
 }
+}
+@media (max-width: 768px){
+  header{
+    width: 700px;
+    margin-left: 38px;
+  }
+  main .right-side {
+    width: 700px;
+    border: 1px solid black;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 425px){
+  header{
+    margin-left: 19px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

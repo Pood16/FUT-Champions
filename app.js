@@ -194,7 +194,6 @@ form.addEventListener("submit", function(e){
   numberInputs.forEach(input => checkNumbers(input));
 
     if(isValid){
-        // editPlayer();
         createPlayer(); 
     }else{
         e.preventDefault();
@@ -397,7 +396,7 @@ const formations = [
       },
     },
   ];
-  repositionCards("4-4-2"); 
+  
   function repositionCards(x) {
     const formation = formations.find(element => element.formation.trim() === x);
     const cards = document.querySelectorAll(".single-card");
@@ -444,13 +443,7 @@ function removePlayer() {
     deleteIcons.forEach(element => element.addEventListener("click", function(e){
     const parentCard = e.currentTarget.closest('.card-container');
     const targetName = parentCard.children[3].textContent.trim();
-    
-
-    // remove the player 
-    
     players = players.filter(player => player.name.trim() !== targetName);
-    
-    // update the cards 
     localStorage.setItem("players", JSON.stringify(players));
     createCard();
 }));
@@ -538,7 +531,6 @@ function updatePlayerInLocal(index){
 const cardsCollection = document.querySelectorAll(".single-card");
 const pitch = document.querySelector(".pitch");
 
-// Create side bar for similar posts
 const sideModal = document.createElement("div");
 sideModal.classList.add("pitch-model");
 
@@ -549,21 +541,16 @@ closeBtn.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
 closeBtn.addEventListener("click", function(){
     sideModal.style.transform = "translateX(100%)";
 });
-sideModal.appendChild(closeBtn);
-
-// append side bar 
+sideModal.appendChild(closeBtn); 
 document.body.appendChild(sideModal);
 
 cardsCollection.forEach(card => card.addEventListener("click", function(e){
-    // Clear previous cards
+    // Clear old cards
     const existingCards = sideModal.querySelectorAll('.similar-card');
     existingCards.forEach(card => card.remove());
 
-    //the clicked card
     const clickedCardInPitch = e.currentTarget;
     
-    
-    // filter players
     const positionInDiv = e.currentTarget.getAttribute("position");
     const matchedPositions = players.filter(player => player.position === positionInDiv);
     
@@ -581,7 +568,7 @@ cardsCollection.forEach(card => card.addEventListener("click", function(e){
 
         cardContainer.addEventListener("click", function(){
             clickedCardInPitch.innerHTML = `
-                <img src="img/bg/card.webp" alt="" class="card-bg">
+                
                 <div class="player-overlay">
                     <span class="x">X</span>
                     <img src="${player.photo}" alt="${player.name}" class="player-image">
@@ -608,6 +595,6 @@ cardsCollection.forEach(card => card.addEventListener("click", function(e){
         });
         
     });
-    sideModal.style.transform = "translateX(0)";
+        sideModal.style.transform = "translateX(0)";
     
 }));
