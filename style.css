@@ -72,7 +72,6 @@ main .pitch .pitch-cards .single-card {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border: 1px solid black;
   
 }
 
@@ -118,6 +117,7 @@ main .right-side #cards {
   margin-top: 15px;
   overflow-y: scroll;
   height: calc(100vh - 50px - 80px);
+  overflow-x: hidden;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -132,6 +132,9 @@ main .right-side #cards .card-container{
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid #4ade80;
 
+}
+main .right-side #cards .card-container:hover{
+    transform: translateY(-2px);
 }
 main .right-side #cards .card-container .icons-container{
   width: 70%;
@@ -194,7 +197,7 @@ main .right-side #cards .card-container .statistics{
     gap: 2px;
     position: absolute;
     top: 133px;
-    left: 20px;
+    left: 16px;
 }
 main .right-side #cards .card-container .statistics .field-group{
   display: flex;
@@ -521,7 +524,6 @@ width: 100%;
   }
   main .right-side {
     width: 700px;
-    border: 1px solid black;
     margin: 0 auto;
   }
 }

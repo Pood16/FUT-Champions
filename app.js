@@ -26,7 +26,6 @@ function closeModalForm(){
 window.addEventListener("click", function(e){
     if(e.target == formModal){
         formModal.style.display = "none";
-        // clearErrorMessages()
         form.reset();
     }
 })
